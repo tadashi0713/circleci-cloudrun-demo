@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
   cloudrun: circleci/gcp-cloud-run@1.0.2
-  docker: circleci/docker@1.6.0
 
 jobs:
   test:
@@ -24,9 +23,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - docker/publish:
-          deploy: false
-          image: gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo-${CIRCLE_SHA1}
+      - run: docker build -t gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo-${CIRCLE_SHA1} .
 
 workflows:
   sample: 
