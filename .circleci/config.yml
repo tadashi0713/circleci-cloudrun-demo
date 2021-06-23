@@ -2,9 +2,10 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
+  cloudrun: circleci/gcp-cloud-run@1.0.2
 
 jobs:
-  build-and-test:
+  test:
     docker:
       - image: cimg/node:15.1
     steps:
@@ -15,7 +16,17 @@ jobs:
           name: Run tests
           command: yarn test
 
+  deploy:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - cloudrun/init
+      - cloudrun/build:
+          tag: 'gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}'
+
 workflows:
   sample: 
     jobs:
-      - build-and-test
+      - test
+      - deploy
