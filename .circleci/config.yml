@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
   cloudrun: circleci/gcp-cloud-run@1.0.2
+  gcp-gcr: circleci/gcp-gcr@0.13.0
 
 jobs:
   test:
@@ -16,18 +17,12 @@ jobs:
           name: Run tests
           command: yarn test
 
-  build:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 20.10.6
-      - run: docker build -t gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo-${CIRCLE_SHA1} .
-
 workflows:
   sample: 
     jobs:
       - test
-      - build
+      - gcp-gcr/build-and-push-image:
+          image: first-circleci-demo-${CIRCLE_SHA1}
+          registry-url: asia.gcr.io
+          setup-remote-docker: true
+          use-docker-layer-caching: true
