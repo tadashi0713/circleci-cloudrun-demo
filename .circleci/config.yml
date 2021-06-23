@@ -2,8 +2,13 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
-  cloudrun: circleci/gcp-cloud-run@1.0.2
-  gcp-gcr: circleci/gcp-gcr@0.13.0
+  aws-ecr: circleci/aws-ecr@7.0.0
+
+executors:
+  docker_build:
+    machine:
+      image: ubuntu-1604:201903-01
+      docker_layer_caching: true
 
 jobs:
   test:
@@ -17,22 +22,11 @@ jobs:
           name: Run tests
           command: yarn test
 
-  build:
-    machine:
-      image: ubuntu-1604:201903-01
-      docker_layer_caching: true
-    steps:
-      - checkout
-      - gcp-gcr/gcr-auth
-      - gcp-gcr/build-image:
-          image: first-circleci-demo
-          registry-url: asia.gcr.io
-      - gcp-gcr/push-image:
-          image: first-circleci-demo
-          registry-url: asia.gcr.io
-
 workflows:
   sample: 
     jobs:
       - test
-      - build
+      - aws-ecr/build_and_push_image:
+          executor: docker_build
+          repo: tadashi-fargate-demo
+          tag: "${CIRCLE_SHA1}"
