@@ -22,7 +22,9 @@ workflows:
     jobs:
       - test
       - gcp-gcr/build-and-push-image:
-          executor: gcp-gcr/default
+          executor:
+            docker:
+              - image: cimg/base
           image: first-circleci-demo-${CIRCLE_SHA1}
           registry-url: asia.gcr.io
           setup-remote-docker: true
