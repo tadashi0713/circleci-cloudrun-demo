@@ -23,6 +23,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+          version: 20.10.6
       - run: docker build -t gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo-${CIRCLE_SHA1} .
 
 workflows:
