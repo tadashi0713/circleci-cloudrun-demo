@@ -8,7 +8,7 @@ orbs:
 executors:
   executor-for-docker-build:
     docker:
-      - image: 'cimg:base'
+      - image: cimg/base
 
 jobs:
   test:
