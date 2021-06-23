@@ -1,4 +1,4 @@
-FROM node:14.17.0 as build-deps
+FROM node:15.1 as build-deps
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
