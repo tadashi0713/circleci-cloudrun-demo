@@ -4,12 +4,6 @@ orbs:
   node: circleci/node@4.1
   aws-ecr: circleci/aws-ecr@7.0.0
 
-executors:
-  docker_build:
-    machine:
-      image: ubuntu-1604:201903-01
-      docker_layer_caching: true
-
 jobs:
   test:
     docker:
@@ -27,6 +21,6 @@ workflows:
     jobs:
       - test
       - aws-ecr/build-and-push-image:
-          executor: docker_build
+          remote-docker-layer-caching: true
           repo: tadashi-fargate-demo
           tag: "${CIRCLE_SHA1}"
