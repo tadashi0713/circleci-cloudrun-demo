@@ -26,7 +26,7 @@ workflows:
   sample: 
     jobs:
       - test
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           executor: docker_build
           repo: tadashi-fargate-demo
           tag: "${CIRCLE_SHA1}"
