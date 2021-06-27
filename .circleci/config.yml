@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
-  aws-ecr: circleci/aws-ecr@7.0.0
+  # aws-ecr: circleci/aws-ecr@7.0.0
+  gcp-gcr: circleci/gcp-gcr@0.13.0
 
 jobs:
   test:
@@ -20,7 +21,12 @@ workflows:
   sample: 
     jobs:
       - test
-      - aws-ecr/build-and-push-image:
-          remote-docker-layer-caching: true
-          repo: tadashi-fargate-demo
-          tag: "${CIRCLE_SHA1}"
+      # - aws-ecr/build-and-push-image:
+      #     remote-docker-layer-caching: true
+      #     repo: tadashi-fargate-demo
+      #     tag: "${CIRCLE_SHA1}"
+      - gcp-gcr/build-and-push-image:
+          image: first-circleci-demo
+          registry-url: asia.gcr.io
+          setup-remote-docker: true
+          use-docker-layer-caching: true
