@@ -36,7 +36,7 @@ workflows:
       - test
       - gcp-gcr/build-and-push-image:
           image: first-circleci-demo
-          tag: ${CIRCLE_SHA1}'
+          tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
           use-docker-layer-caching: true
       - deploy_cloud_run:
