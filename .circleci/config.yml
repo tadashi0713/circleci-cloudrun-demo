@@ -26,6 +26,14 @@ jobs:
           at: .
       - run: yarn test
 
+  build:
+    docker:
+      - image: cimg/node:15.1
+    steps:
+      - attach_workspace:
+          at: .
+      - run: yarn build  
+
   deploy_cloud_run:
     docker:
       - image: 'cimg/base:stable'
@@ -44,6 +52,9 @@ workflows:
     jobs:
       - install_dependencies
       - test:
+          requires:
+            - install_dependencies
+      - build:
           requires:
             - install_dependencies
 
