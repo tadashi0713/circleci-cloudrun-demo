@@ -21,6 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cy:local": "cypress run --browser chrome",
+    "cy:ci": "cypress run --browser chrome",
     "test:ci": "react-scripts test --reporters=jest-junit --reporters=default --watchAll=false --coverage --ci --runInBand",
     "eject": "react-scripts eject"
   },
@@ -41,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^7.6.0"
   }
 }
