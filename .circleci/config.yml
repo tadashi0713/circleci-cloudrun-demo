@@ -1,5 +1,13 @@
 version: 2.1
 
+executors:
+  node:
+    docker:
+      - image: cimg/node:15.1
+  base:
+    docker:
+      - image: 'cimg/base:stable'
+
 orbs:
   node: circleci/node@4.1
   gcp-gcr: circleci/gcp-gcr@0.13.0
@@ -7,8 +15,7 @@ orbs:
 
 jobs:
   install_dependencies:
-    docker:
-      - image: cimg/node:15.1
+    executor: node
     steps:
       - checkout
       - node/install-packages:
@@ -19,24 +26,21 @@ jobs:
             - .
   
   test:
-    docker:
-      - image: cimg/node:15.1
+    executor: node
     steps:
       - attach_workspace:
           at: .
       - run: yarn test
 
   build:
-    docker:
-      - image: cimg/node:15.1
+    executor: node
     steps:
       - attach_workspace:
           at: .
       - run: yarn build  
 
   deploy_cloud_run_staging:
-    docker:
-      - image: 'cimg/base:stable'
+    executor: base
     steps:
       - gcp-cloud-run/init
       - gcp-cloud-run/deploy:
@@ -47,8 +51,7 @@ jobs:
           unauthenticated: true
 
   deploy_cloud_run_prod:
-    docker:
-      - image: 'cimg/base:stable'
+    executor: base
     steps:
       - gcp-cloud-run/init
       - gcp-cloud-run/deploy:
@@ -83,7 +86,7 @@ workflows:
       - deploy_cloud_run_staging:
           requires:
             - gcp-gcr/build-and-push-image
-      - hold:
+      - approve_to_release_prod:
           type: approval
           requires:
             - deploy_cloud_run_staging
