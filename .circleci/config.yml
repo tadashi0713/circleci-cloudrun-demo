@@ -34,11 +34,22 @@ jobs:
           at: .
       - run: yarn build  
 
-  deploy_cloud_run:
+  deploy_cloud_run_staging:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - checkout
+      - gcp-cloud-run/init
+      - gcp-cloud-run/deploy:
+          image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
+          platform: managed
+          region: asia-northeast1
+          service-name: first-circleci-demo-staging
+          unauthenticated: true
+
+  deploy_cloud_run_prod:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
       - gcp-cloud-run/init
       - gcp-cloud-run/deploy:
           image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
@@ -69,6 +80,13 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_cloud_run:
+      - deploy_cloud_run_staging:
           requires:
             - gcp-gcr/build-and-push-image
+      - hold:
+          type: approval
+          requires:
+            - deploy_cloud_run_staging
+      - deploy_cloud_run_prod:
+          requires:
+            - hold
