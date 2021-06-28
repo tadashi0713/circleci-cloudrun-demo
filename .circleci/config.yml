@@ -31,8 +31,14 @@ jobs:
       - attach_workspace:
           at: .
       - run: yarn test:ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "reports/junit/js-test-results.xml"
       - store_test_results:
-          path: junit.xml
+          path: reports
+      - store_artifacts:
+          path: reports
+      - store_artifacts:
+          path: coverage
 
   build:
     executor: node
