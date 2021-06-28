@@ -39,6 +39,10 @@ workflows:
           tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
           use-docker-layer-caching: true
+          filters:
+            branches:
+              only:
+                - master
       - deploy_cloud_run:
           requires:
             - gcp-gcr/build-and-push-image
