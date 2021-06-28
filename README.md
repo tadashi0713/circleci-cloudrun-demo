@@ -12,6 +12,7 @@
     * Docker layer caching
     * Orbs
     * Custom Executors
+    * Store test results
 * CircleCI orbs
     * [gcp-cloud-run](https://circleci.com/developer/orbs/orb/circleci/gcp-cloud-run)
     * [gcp-gcr](https://circleci.com/developer/orbs/orb/circleci/gcp-gcr)
