@@ -24,7 +24,7 @@ jobs:
       - checkout
       - gcp-cloud-run/init
       - gcp-cloud-run/deploy:
-          image: 'gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
+          image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
           platform: managed
           region: asia-northeast1
           service-name: first-circleci-demo
