@@ -6,16 +6,25 @@ orbs:
   gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
 
 jobs:
-  test:
+  install_dependencies:
     docker:
       - image: cimg/node:15.1
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: yarn 
-      - run:
-          name: Run tests
-          command: yarn test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  
+  test:
+    docker:
+      - image: cimg/node:15.1
+    steps:
+      - attach_workspace:
+          at: .
+      - run: yarn test
 
   deploy_cloud_run:
     docker:
@@ -31,9 +40,15 @@ jobs:
           unauthenticated: true
 
 workflows:
-  build_and_deploy: 
+  build_and_test: 
     jobs:
-      - test
+      - install_dependencies
+      - test:
+          requires:
+            - install_dependencies
+
+  docker_build_and_deploy_cloud_run:
+    jobs:
       - gcp-gcr/build-and-push-image:
           image: first-circleci-demo
           tag: '${CIRCLE_SHA1}'
