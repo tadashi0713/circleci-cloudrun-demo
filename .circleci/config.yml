@@ -28,5 +28,5 @@ workflows:
       - gcp-gcr/build-and-push-image:
           image: first-circleci-demo
           registry-url: asia.gcr.io
-          setup-remote-docker: true
+          # setup-remote-docker: true
           use-docker-layer-caching: true
