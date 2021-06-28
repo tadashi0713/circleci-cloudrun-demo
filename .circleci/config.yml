@@ -30,7 +30,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: yarn test
+      - run: yarn test:ci
+      - store_test_results:
+          path: junit.xml
 
   build:
     executor: node
