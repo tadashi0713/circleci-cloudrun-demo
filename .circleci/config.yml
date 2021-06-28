@@ -2,8 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
-  # aws-ecr: circleci/aws-ecr@7.0.0
   gcp-gcr: circleci/gcp-gcr@0.13.0
+  gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
 
 jobs:
   test:
@@ -17,16 +17,28 @@ jobs:
           name: Run tests
           command: yarn test
 
+  deploy_cloud_run:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - gcp-cloud-run/init
+      - gcp-cloud-run/deploy:
+          image: 'gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
+          platform: managed
+          region: asia-northeast1
+          service-name: first-circleci-demo
+          unauthenticated: true
+
 workflows:
-  sample: 
+  build_and_deploy: 
     jobs:
       - test
-      # - aws-ecr/build-and-push-image:
-      #     remote-docker-layer-caching: true
-      #     repo: tadashi-fargate-demo
-      #     tag: "${CIRCLE_SHA1}"
       - gcp-gcr/build-and-push-image:
           image: first-circleci-demo
+          tag: ${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
-          # setup-remote-docker: true
           use-docker-layer-caching: true
+      - deploy_cloud_run:
+          requires:
+            - gcp-gcr/build-and-push-image
