@@ -94,4 +94,4 @@ workflows:
             - deploy_cloud_run_staging
       - deploy_cloud_run_prod:
           requires:
-            - hold
+            - approve_to_release_prod
