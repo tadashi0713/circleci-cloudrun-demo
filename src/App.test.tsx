@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+describe('Click button', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  fireEvent.click(screen.getByTestId("Button"));
+
+  test('Text should be shown', () => {
+    expect(screen.getByTestId('Text')).toBeInTheDocument();
+  });
 });
