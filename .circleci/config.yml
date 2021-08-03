@@ -12,7 +12,7 @@ orbs:
   node: circleci/node@4.6.0
   gcp-gcr: circleci/gcp-gcr@0.13.0
   gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
-  cypress: cypress-io/cypress@1.28.0
+  cypress: cypress-io/cypress@1.29.0
 
 jobs:
   install_dependencies:
