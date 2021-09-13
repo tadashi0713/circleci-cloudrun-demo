@@ -5,6 +5,14 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.13.0
   gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
 
+executors:
+  docker-build:
+    machine:
+      # Docker Layer Caching
+      docker_layer_caching: true
+      # Resource Class
+      resource_class: large
+
 jobs:
   deploy_cloud_run:
     docker:
@@ -24,6 +32,7 @@ workflows:
       - node/test:
           run-command: test:ci
       - gcp-gcr/build-and-push-image:
+          executor: docker-build
           image: first-circleci-demo
           tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
