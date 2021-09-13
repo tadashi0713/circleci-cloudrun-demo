@@ -19,12 +19,9 @@ jobs:
           image: first-circleci-demo
           tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
-      - gcp-cloud-run/deploy:
-          image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
-          platform: managed
-          region: asia-northeast1
-          service-name: first-circleci-demo
-          unauthenticated: true
+      - run:
+          name: Deploy to Cloud Run
+          command: gcloud run deploy first-circleci-demo --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
 
 workflows:
   test_and_deploy: 
