@@ -1,4 +1,6 @@
-# First CircleCI demo
+# Demo for CircleCI + Google Cloud Run
+
+![](https://user-images.githubusercontent.com/8651308/133074306-51a45e90-08bc-4be7-90f7-21d8c7df5c9c.png)
 
 * React + Typescript application
 * Docker build & deploy to Google Cloud Run
