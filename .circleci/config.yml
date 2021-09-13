@@ -5,20 +5,20 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.13.0
   gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
 
-executors:
-  docker-build:
+jobs:
+  deploy_cloud_run:
     machine:
       # Docker Layer Caching
       docker_layer_caching: true
       # Resource Class
       resource_class: large
-
-jobs:
-  deploy_cloud_run:
-    docker:
-      - image: 'cimg/base:stable'
     steps:
-      - gcp-cloud-run/init
+      - checkout
+      - gcp-gcr/gcr-auth
+      - gcp-gcr/build-image:
+          image: first-circleci-demo
+          tag: '${CIRCLE_SHA1}'
+          registry-url: asia.gcr.io
       - gcp-cloud-run/deploy:
           image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
           platform: managed
@@ -31,18 +31,10 @@ workflows:
     jobs:
       - node/test:
           run-command: test:ci
-      - gcp-gcr/build-and-push-image:
-          executor: docker-build
-          image: first-circleci-demo
-          tag: '${CIRCLE_SHA1}'
-          registry-url: asia.gcr.io
-          use-docker-layer-caching: true
+      - deploy_cloud_run:
           requires:
             - node/test
           filters:
             branches:
               only:
                 - master
-      - deploy_cloud_run:
-          requires:
-            - gcp-gcr/build-and-push-image
