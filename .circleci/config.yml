@@ -20,9 +20,11 @@ jobs:
           registry-url: asia.gcr.io
       - run:
           name: Deploy to Cloud Run
-          command: gcloud run deploy first-circleci-demo \
-            --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1} \
-            --platform=managed --region=asia-northeast1
+          command: >-
+            gcloud run deploy first-circleci-demo
+            --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
+            --platform=managed
+            --region=asia-northeast1
 
 workflows:
   test_and_deploy: 
