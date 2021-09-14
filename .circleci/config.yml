@@ -14,17 +14,27 @@ jobs:
       resource_class: large
     steps:
       - checkout
-      - gcp-cloud-run/init
+      - gcp-gcr/gcr-auth
       - gcp-gcr/build-image:
           image: first-circleci-demo
           tag: '${CIRCLE_SHA1}'
           registry-url: asia.gcr.io
-      - gcp-cloud-run/deploy:
-          image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
-          platform: managed
-          region: asia-northeast1
-          service-name: first-circleci-demo
-          unauthenticated: true
+      - gcp-gcr/push-image:
+          image: first-circleci-demo
+          tag: '${CIRCLE_SHA1}'
+          registry-url: asia.gcr.io
+      - run:
+          name: Deploy to Google Cloud run
+          command: >-
+            gcloud run deploy first-circleci-demo
+            --platform=managed --region=asia-northeast1 --allow-unauthenticated
+            --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
+      # - gcp-cloud-run/deploy:
+      #     image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
+      #     platform: managed
+      #     region: asia-northeast1
+      #     service-name: first-circleci-demo
+      #     unauthenticated: true
 
 workflows:
   test_and_deploy: 
