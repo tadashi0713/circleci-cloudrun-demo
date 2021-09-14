@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   node: circleci/node@4.7.0
   gcp-gcr: circleci/gcp-gcr@0.13.0
-  gcp-cloud-run: circleci/gcp-cloud-run@1.0.2
 
 jobs:
   deploy_cloud_run:
@@ -29,12 +28,6 @@ jobs:
             gcloud run deploy first-circleci-demo
             --platform=managed --region=asia-northeast1 --allow-unauthenticated
             --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
-      # - gcp-cloud-run/deploy:
-      #     image: 'asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}'
-      #     platform: managed
-      #     region: asia-northeast1
-      #     service-name: first-circleci-demo
-      #     unauthenticated: true
 
 workflows:
   test_and_deploy: 
