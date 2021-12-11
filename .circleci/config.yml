@@ -6,7 +6,8 @@ orbs:
 
 jobs:
   e2e_parallel:
-    docker: cimg/node:lts-browsers
+    docker:
+      - image: cimg/node:lts-browsers
     steps:
       - checkout
       - node/install-packages
@@ -46,7 +47,7 @@ workflows:
       - e2e_parallel
       - deploy_cloud_run:
           requires:
-            - node/test
+            - unit_test
           filters:
             branches:
               only:
