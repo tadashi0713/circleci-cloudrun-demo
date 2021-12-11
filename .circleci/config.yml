@@ -34,6 +34,7 @@ workflows:
     jobs:
       - node/test:
           run-command: test:ci
+          test-results-path: junit.xml # Upload Test Results
       - deploy_cloud_run:
           requires:
             - node/test
