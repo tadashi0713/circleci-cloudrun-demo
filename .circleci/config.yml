@@ -5,6 +5,13 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.13.0
 
 jobs:
+  e2e_parallel:
+    docker: cimg/node:lts-browsers
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run e2e
+
   deploy_cloud_run:
     machine:
       # Docker Layer Caching
@@ -33,8 +40,10 @@ workflows:
   test_and_deploy: 
     jobs:
       - node/test:
+          name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
+      - e2e_parallel
       - deploy_cloud_run:
           requires:
             - node/test
