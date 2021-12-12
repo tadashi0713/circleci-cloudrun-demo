@@ -15,7 +15,7 @@ jobs:
       - node/install-packages
       - browser-tools/install-chrome
       - run: | 
-          TEST_FILES=$(circleci tests glob "e2e/**/*.spec.ts" | circleci tests split --split-by=timings)
+          TEST_FILES=$(circleci tests glob "**/*.spec.ts" | circleci tests split --split-by=timings)
           npm run e2e -file=TEST_FILES
       - store_test_results:
           path: report.xml
