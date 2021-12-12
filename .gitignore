@@ -10,6 +10,7 @@
 /reports
 /cypress/videos
 junit.xml
+report.xml
 
 # production
 /build
