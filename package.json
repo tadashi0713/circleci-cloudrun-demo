@@ -24,7 +24,7 @@
     "test": "craco test",
     "test:ci": "craco test --reporters=jest-junit --reporters=default --watchAll=false --coverage --ci --runInBand",
     "eject": "craco eject",
-    "e2e": "start-server-and-test 'npm run start' http://localhost:3000 \"testcafe chrome $npm_config_file\""
+    "e2e": "start-server-and-test 'npm run start' http://localhost:3000 \"testcafe chrome $npm_config_file --reporter junit:report.xml\""
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +49,7 @@
     "postcss": "7.0.39",
     "start-server-and-test": "1.14.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.17",
-    "testcafe": "1.17.1"
+    "testcafe": "1.17.1",
+    "testcafe-reporter-junit": "3.0.2"
   }
 }

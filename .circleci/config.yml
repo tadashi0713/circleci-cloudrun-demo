@@ -14,6 +14,8 @@ jobs:
       - node/install-packages
       - browser-tools/install-chrome
       - run: npm run e2e -file="e2e/App.spec1.ts"
+      - store_test_results:
+          path: report.xml
 
   deploy_cloud_run:
     machine:

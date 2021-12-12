@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite name="TestCafe Tests: Chrome 96.0.4664.93 / macOS 10.15.7" tests="1" failures="0" skipped="0" errors="0" time="1.801" timestamp="Sun, 12 Dec 2021 10:14:08 GMT" >
+  <testcase classname="App" name="Click event test" time="1.791">
+  </testcase>
+</testsuite>
