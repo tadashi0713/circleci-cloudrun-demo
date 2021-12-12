@@ -10,5 +10,5 @@ test('Click event test', async t => {
 
   await t
     .click(button)
-    .expect(text.innerText).eql("Hello")
+    .expect(text.visible).eql(true)
 });
