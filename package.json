@@ -24,7 +24,7 @@
     "test": "craco test",
     "test:ci": "craco test --reporters=jest-junit --reporters=default --watchAll=false --coverage --ci --runInBand",
     "eject": "craco eject",
-    "e2e": "start-server-and-test 'npm run start' http://localhost:3000 'testcafe chrome e2e'"
+    "e2e": "start-server-and-test 'npm run start' http://localhost:3000 \"testcafe chrome $npm_config_file\""
   },
   "eslintConfig": {
     "extends": [
