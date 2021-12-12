@@ -7,13 +7,13 @@ orbs:
 
 jobs:
   e2e_parallel:
-    parallelism: 10
+    parallelism: 10 # Parallelism
     docker:
       - image: cimg/node:lts-browsers
     steps:
       - checkout
       - node/install-packages
-      - browser-tools/install-chrome
+      - browser-tools/install-chrome # Install Chrome
       - run: | 
           TEST_FILES=$(circleci tests glob "e2e/*.spec.ts" | circleci tests split --split-by=timings)
           npm run e2e -file=$TEST_FILES
@@ -48,13 +48,16 @@ workflows:
   test_and_deploy: 
     jobs:
       - node/test:
+          tag: lts
           name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
-      - e2e_parallel
-      - deploy_cloud_run:
+      - e2e_parallel:
           requires:
             - unit_test
+      - deploy_cloud_run:
+          requires:
+            - e2e_parallel
           filters:
             branches:
               only:
