@@ -48,7 +48,7 @@ workflows:
   test_and_deploy: 
     jobs:
       - node/test:
-          tag: lts
+          version: lts
           name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
