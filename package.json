@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "6.4.3",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
@@ -14,16 +13,16 @@
     "jest-junit": "13.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "typescript": "4.5.4",
     "web-vitals": "2.1.2"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "test:ci": "craco test --reporters=jest-junit --reporters=default --watchAll=false --coverage --ci --runInBand",
-    "eject": "craco eject",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:ci": "react-scripts test --reporters=jest-junit --reporters=default --watchAll=false --coverage --ci --runInBand",
+    "eject": "react-scripts eject",
     "e2e": "start-server-and-test 'npm run start' http://localhost:3000 \"testcafe chrome $npm_config_file --reporter junit:report.xml\""
   },
   "eslintConfig": {
@@ -45,10 +44,10 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "9.8.8",
+    "autoprefixer": "10.4.0",
     "postcss": "8.4.5",
     "start-server-and-test": "1.14.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.17",
+    "tailwindcss": "3.0.5",
     "testcafe": "1.17.1",
     "testcafe-reporter-junit": "3.0.2"
   }
