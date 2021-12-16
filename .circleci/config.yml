@@ -9,7 +9,7 @@ jobs:
   e2e_parallel:
     parallelism: 10 # Parallelism
     docker:
-      - image: cimg/node:17.2.0-browsers
+      - image: cimg/node:16.13.1-browsers
     steps:
       - checkout
       - node/install-packages
@@ -48,7 +48,7 @@ workflows:
   test_and_deploy: 
     jobs:
       - node/test:
-          version: 17.2.0
+          version: 16.13.1
           name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
