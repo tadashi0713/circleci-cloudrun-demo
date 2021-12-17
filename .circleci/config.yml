@@ -1,6 +1,6 @@
 version: 2.1
 
-orbs:
+orbs: # Orbs
   node: circleci/node@4.9.0
   gcp-gcr: circleci/gcp-gcr@0.13.0
   browser-tools: circleci/browser-tools@1.2.3
@@ -10,7 +10,7 @@ jobs:
     parallelism: 10 # Parallelism
     docker:
       - image: cimg/node:16.13.1-browsers
-    resource_class: large
+    resource_class: large # Resource Class(Docker)
     steps:
       - checkout
       - node/install-packages
@@ -23,10 +23,8 @@ jobs:
 
   deploy_cloud_run:
     machine:
-      # Docker Layer Caching
-      docker_layer_caching: true
-      # Resource Class
-      resource_class: xlarge
+      docker_layer_caching: true # Docker Layer Caching
+      resource_class: xlarge # Resource Class(Linux VM)
     steps:
       - checkout
       - gcp-gcr/gcr-auth
