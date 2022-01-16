@@ -24,7 +24,7 @@ jobs:
   deploy_cloud_run:
     machine:
       docker_layer_caching: true # Docker Layer Caching
-      resource_class: xlarge # Resource Class(Linux VM)
+      resource_class: large # Resource Class(Linux VM)
     steps:
       - checkout
       - gcp-gcr/gcr-auth
