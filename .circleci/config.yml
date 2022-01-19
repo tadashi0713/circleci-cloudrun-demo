@@ -51,12 +51,8 @@ workflows:
           name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
-      - e2e_parallel:
-          requires:
-            - unit_test
+      - e2e_parallel
       - deploy_cloud_run:
-          requires:
-            - e2e_parallel
           filters:
             branches:
               only:
