@@ -7,6 +7,6 @@ describe('Click button', () => {
   fireEvent.click(screen.getByTestId("Button"));
 
   test('Text should be shown', () => {
-    expect(screen.getByTestId('Text')).toHaveTextContent('Hello');
+    expect(screen.getByTestId('Text')).toHaveTextContent('CircleCI');
   });
 });
