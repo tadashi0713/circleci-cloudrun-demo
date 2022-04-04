@@ -48,7 +48,9 @@ jobs:
     resource_class: tadashi0713/gcp
     steps:
       - checkout
-      - run: docker build .
+      - run: |
+          source ~/.bashrc
+          docker build .
     
 workflows:
   test_and_deploy: 
