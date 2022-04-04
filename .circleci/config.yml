@@ -21,6 +21,18 @@ jobs:
       - store_test_results:
           path: report.xml
 
+  e2e_runner:
+    machine: true
+    resource_class: tadashi0713/gcp
+    steps:
+      - checkout
+      - browser-tools/install-chrome # Install Chrome
+      - run: | 
+          npm install
+          npm run e2e
+      - store_test_results:
+          path: report.xml
+
   deploy_cloud_run:
     machine:
       docker_layer_caching: true # Docker Layer Caching
@@ -51,7 +63,12 @@ workflows:
           name: unit_test
           run-command: test:ci
           test-results-path: junit.xml # Upload Test Results
-      - e2e_parallel
+      - e2e_parallel:
+          requires:
+            - unit_test
+      - e2e_runner:
+          requires:
+            - unit_test
       - deploy_cloud_run:
           filters:
             branches:
