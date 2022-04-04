@@ -21,17 +21,6 @@ jobs:
       - store_test_results:
           path: report.xml
 
-  test_runner:
-    machine: true
-    resource_class: tadashi0713/gcp
-    steps:
-      - checkout
-      - run: | 
-          npm install
-          npm run test:ci
-      - store_test_results:
-          path: junit.xml
-
   deploy_cloud_run:
     machine:
       docker_layer_caching: true # Docker Layer Caching
@@ -54,6 +43,13 @@ jobs:
             --platform=managed --region=asia-northeast1 --allow-unauthenticated
             --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
 
+  deploy_runner:
+    machine: true
+    resource_class: tadashi0713/gcp
+    steps:
+      - checkout
+      - run: docker build .
+    
 workflows:
   test_and_deploy: 
     jobs:
@@ -65,10 +61,12 @@ workflows:
       - e2e_parallel:
           requires:
             - unit_test
-      - test_runner:
-          requires:
-            - unit_test
       - deploy_cloud_run:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_runner:
           filters:
             branches:
               only:
