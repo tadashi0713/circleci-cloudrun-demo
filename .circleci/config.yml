@@ -26,12 +26,11 @@ jobs:
     resource_class: tadashi0713/gcp
     steps:
       - checkout
-      - browser-tools/install-chrome # Install Chrome
       - run: | 
           npm install
-          npm run e2e
+          npm run test:ci
       - store_test_results:
-          path: report.xml
+          path: junit.xml
 
   deploy_cloud_run:
     machine:
