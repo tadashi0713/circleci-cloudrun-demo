@@ -9,3 +9,4 @@
 * CircleCI orbs
     * [gcp-gcr](https://circleci.com/developer/orbs/orb/circleci/gcp-gcr)
     * [node](https://circleci.com/developer/ja/orbs/orb/circleci/node)
+    * [browser-tools](https://circleci.com/developer/ja/orbs/orb/circleci/browser-tools)
