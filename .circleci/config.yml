@@ -42,15 +42,6 @@ jobs:
             gcloud run deploy first-circleci-demo
             --platform=managed --region=asia-northeast1 --allow-unauthenticated
             --image=asia.gcr.io/${GOOGLE_PROJECT_ID}/first-circleci-demo:${CIRCLE_SHA1}
-
-  deploy_runner:
-    machine: true
-    resource_class: tadashi0713/gcp
-    steps:
-      - checkout
-      - run: |
-          source ~/.bashrc
-          docker build .
     
 workflows:
   test_and_deploy: 
@@ -64,11 +55,6 @@ workflows:
           requires:
             - unit_test
       - deploy_cloud_run:
-          filters:
-            branches:
-              only:
-                - master
-      - deploy_runner:
           filters:
             branches:
               only:
