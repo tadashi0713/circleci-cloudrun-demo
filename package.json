@@ -48,7 +48,7 @@
     "postcss": "8.4.38",
     "start-server-and-test": "2.0.4",
     "tailwindcss": "3.4.4",
-    "testcafe": "3.6.0",
+    "testcafe": "3.6.1",
     "testcafe-reporter-junit": "3.0.2"
   }
 }
