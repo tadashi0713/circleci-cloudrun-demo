@@ -47,7 +47,7 @@
     "autoprefixer": "10.4.19",
     "postcss": "8.4.39",
     "start-server-and-test": "2.0.4",
-    "tailwindcss": "3.4.5",
+    "tailwindcss": "3.4.6",
     "testcafe": "3.6.2",
     "testcafe-reporter-junit": "3.0.2"
   }
