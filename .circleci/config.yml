@@ -9,7 +9,7 @@ jobs:
   e2e_parallel:
     parallelism: 10 # Parallelism
     docker:
-      - image: cimg/node:16.20.2-browsers
+      - image: cimg/node:22.7.0-browsers
     resource_class: large # Resource Class(Docker)
     steps:
       - checkout
